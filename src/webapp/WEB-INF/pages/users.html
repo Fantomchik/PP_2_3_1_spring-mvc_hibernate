@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:custom="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Users</title>
+</head>
+<body>
+<h2>All Users</h2>
+<br>
+<table border="1" style="width:300px">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <form method="get" th:action="@{/edit}">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <input type="submit" value="Update">
+            </form>
+            <form method="post" th:action="@{/delete}">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+<br/>
+<form method="get" th:action="@{/new}">
+    <input type="submit" value="Add">
+</form>
+<div th:if="${#lists.isEmpty(users)}">
+    <p>No users found.</p>
+</div>
+</body>
+</html>
